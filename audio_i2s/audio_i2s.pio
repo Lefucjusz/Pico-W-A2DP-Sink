@@ -1,0 +1,39 @@
+; I2S output master program
+
+.program i2s_out_master
+.side_set 2
+
+                    ;      /--- LRCLK
+                    ;      |/-- BCLK
+public entry_point: ;      ||
+    set x, 14       side 0b11
+frame_r:            
+    out pins, 1     side 0b10
+    jmp x-- frame_r side 0b11
+    out pins, 1     side 0b00
+    set x, 14       side 0b01
+frame_l:
+    out pins, 1     side 0b00
+    jmp x-- frame_l side 0b01
+    out pins, 1     side 0b10
+
+% c-sdk {
+
+static inline void i2s_out_master_program_init(PIO pio, uint sm, uint offset, uint data_pin, uint clock_pin_base) 
+{
+    pio_sm_config sm_config = i2s_out_master_program_get_default_config(offset);
+    
+    sm_config_set_out_pins(&sm_config, data_pin, 1);
+    sm_config_set_sideset_pins(&sm_config, clock_pin_base);
+    sm_config_set_out_shift(&sm_config, false, true, 32);
+
+    pio_sm_init(pio, sm, offset, &sm_config);
+
+    uint pin_mask = (1U << data_pin) | (3U << clock_pin_base);
+    pio_sm_set_pindirs_with_mask(pio, sm, pin_mask, pin_mask);
+    pio_sm_set_pins(pio, sm, 0); // Clear pins
+
+    pio_sm_exec(pio, sm, pio_encode_jmp(offset + i2s_out_master_offset_entry_point));
+}
+
+%}
