@@ -2,7 +2,7 @@
 
 // BTstack features that can be enabled
 // #define ENABLE_LOG_INFO
-#define ENABLE_LOG_ERROR
+// #define ENABLE_LOG_ERROR
 #define ENABLE_PRINTF_HEXDUMP
 #define ENABLE_SCO_OVER_HCI
 
@@ -74,7 +74,7 @@
 // map btstack_assert onto Pico SDK assert()
 #define HAVE_ASSERT
 
-// Some USB dongles take longer to respond to HCI reset (e.g. BCM20702A).
+// Some USB dongles take longer to respond to HCI reset (e.g. BCM20702A)
 #define HCI_RESET_RESEND_TIMEOUT_MS 1000
 
 #define ENABLE_SOFTWARE_AES128

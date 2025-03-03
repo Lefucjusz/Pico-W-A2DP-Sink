@@ -28,7 +28,7 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(bluetooth_speaker C CXX ASM)
+project(Pico-W-A2DP-Sink C CXX ASM)
 
 # Show memory usage summary
 add_link_options(
@@ -40,21 +40,21 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(bluetooth_speaker main.c )
+add_executable(Pico-W-A2DP-Sink main.c)
 
-pico_set_program_name(bluetooth_speaker "bluetooth_speaker")
-pico_set_program_version(bluetooth_speaker "0.1")
+pico_set_program_name(Pico-W-A2DP-Sink "Pico-W-A2DP-Sink")
+pico_set_program_version(Pico-W-A2DP-Sink "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(bluetooth_speaker 0)
-pico_enable_stdio_usb(bluetooth_speaker 0)
+pico_enable_stdio_uart(Pico-W-A2DP-Sink 0)
+pico_enable_stdio_usb(Pico-W-A2DP-Sink 0)
 
 # Add the standard library to the build
-target_link_libraries(bluetooth_speaker
+target_link_libraries(Pico-W-A2DP-Sink
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(bluetooth_speaker PRIVATE
+target_include_directories(Pico-W-A2DP-Sink PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
@@ -63,9 +63,9 @@ add_subdirectory(audio_i2s)
 add_subdirectory(bluetooth)
 
 # Add any user requested libraries
-target_link_libraries(bluetooth_speaker 
+target_link_libraries(Pico-W-A2DP-Sink
         bluetooth
         pico_cyw43_arch_none
 )
 
-pico_add_extra_outputs(bluetooth_speaker)
+pico_add_extra_outputs(Pico-W-A2DP-Sink)
