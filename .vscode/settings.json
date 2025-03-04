@@ -39,6 +39,8 @@
     "cortex-debug.objdumpPath": "${env:HOME}/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump",
     "files.associations": {
         "*.cpp": "cpp",
-        "btstack_event.h": "c"
+        "btstack_event.h": "c",
+        "btstack.h": "c",
+        "cyw43_arch.h": "c"
     }
 }

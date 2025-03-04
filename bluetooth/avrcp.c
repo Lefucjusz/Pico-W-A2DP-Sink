@@ -38,7 +38,12 @@ static void bt_avrcp_packet_handler(uint8_t packet_type, uint16_t channel, uint8
 
             avrcp_target_support_event(ctx.cid, AVRCP_NOTIFICATION_EVENT_VOLUME_CHANGED);
             avrcp_target_support_event(ctx.cid, AVRCP_NOTIFICATION_EVENT_BATT_STATUS_CHANGED);
+
             avrcp_target_battery_status_changed(ctx.cid, AVRCP_BATTERY_STATUS_EXTERNAL); // TODO send real status when battery powered
+
+            /* Set default volume */
+            avrcp_target_volume_changed(ctx.cid, BT_AVRCP_DEFAULT_VOLUME);
+            bt_avrcp_volume_change_callback(BT_AVRCP_DEFAULT_VOLUME);
 
             avrcp_controller_get_supported_events(ctx.cid);
             break;
@@ -69,6 +74,7 @@ static void bt_avrcp_controller_packet_handler(uint8_t packet_type, uint16_t cha
             avrcp_controller_enable_notification(ctx.cid, AVRCP_NOTIFICATION_EVENT_PLAYBACK_STATUS_CHANGED);
             avrcp_controller_enable_notification(ctx.cid, AVRCP_NOTIFICATION_EVENT_NOW_PLAYING_CONTENT_CHANGED);
             avrcp_controller_enable_notification(ctx.cid, AVRCP_NOTIFICATION_EVENT_TRACK_CHANGED);
+            avrcp_controller_enable_notification(ctx.cid, AVRCP_NOTIFICATION_EVENT_VOLUME_CHANGED);
             break;
 
         default:
